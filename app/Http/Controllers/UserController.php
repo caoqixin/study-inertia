@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Foundation\Application;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 use Inertia\Response;
 use Inertia\ResponseFactory;
 
@@ -19,7 +22,7 @@ class UserController extends Controller
                 $query->where('name', 'like', "%{$search}%");
             })->paginate(10)
                 ->withQueryString()
-                ->through(fn ($user) => [
+                ->through(fn($user) => [
                     'id' => $user->id,
                     'name' => $user->name,
                     'email' => $user->email
@@ -39,7 +42,7 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request): Application|Redirector|RedirectResponse
     {
         $validated = $request->validate([
             'name' => ['required', 'min:3'],

@@ -13,6 +13,6 @@
     </section>
 </template>
 <script setup>
-import Nav from "./Nav.vue";
+import Nav from "../Components/Nav.vue";
 </script>
 <script></script>
