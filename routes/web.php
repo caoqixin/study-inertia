@@ -14,31 +14,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return inertia('Home');
+Route::get('/', [\App\Http\Controllers\HomeController::class, 'index']);
+
+Route::controller(\App\Http\Controllers\UserController::class)->group(function () {
+    Route::get('/users', 'index');
+    Route::get('/users/create', 'create');
+    Route::post('/users', 'store');
 });
 
 
-Route::get('/users', function () {
-    return inertia('Users/Index', [
-        'users' => User::query()->when(request('search'), function ($query, $search) {
-            $query->where('name', 'like', "%{$search}%");
-        })->paginate(10)
-        ->withQueryString()
-        ->through(fn ($user) => [
-            'id' => $user->id,
-            'name' => $user->name,
-            'email' => $user->email
-        ]),
-        'filters' => request()->only(['search'])
-    ]);
-});
-
-
-Route::get('/settings', function () {
-    return inertia('Settings');
-});
-
-Route::delete('/logout', function () {
-    dd('users logout success');
-});
+Route::get('/settings', [\App\Http\Controllers\SettingController::class, 'index']);

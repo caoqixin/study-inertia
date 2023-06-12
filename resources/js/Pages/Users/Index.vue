@@ -1,7 +1,18 @@
 <template>
     <Head title="User"></Head>
     <div class="flex justify-between mb-6">
-        <h1 class="text-4xl font-bold">Users</h1>
+        <div class="flex items-center">
+            <h1 class="text-4xl font-bold">Users</h1>
+
+            <Link
+                href="/users/create"
+                as="button"
+                type="button"
+                class="inline-flex items-center rounded-full border border-transparent bg-indigo-600 px-5 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 ml-2"
+            >
+                New User
+            </Link>
+        </div>
 
         <input
             v-model="search"
