@@ -9,6 +9,7 @@
                 as="button"
                 type="button"
                 class="inline-flex items-center rounded-full border border-transparent bg-indigo-600 px-5 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 ml-2"
+                v-if="can.create_user"
             >
                 New User
             </Link>
@@ -46,6 +47,7 @@
                     as="button"
                     type="button"
                     :href="`/users/${user.id}/edit`"
+                    v-if="user.can.editable"
                     >Edit</Link
                 >
             </div>
@@ -66,6 +68,7 @@ import debounce from "lodash/debounce";
 const props = defineProps({
     users: Object,
     filters: Object,
+    can: Object,
 });
 
 const search = ref(props.filters.search);

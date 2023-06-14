@@ -20,6 +20,9 @@
                     >Settings</NavLink
                 >
             </li>
+            <li>
+                <NavLink href="/logout" method="delete">Logout</NavLink>
+            </li>
         </ul>
     </nav>
 </template>

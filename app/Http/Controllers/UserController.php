@@ -25,9 +25,15 @@ class UserController extends Controller
                 ->through(fn($user) => [
                     'id' => $user->id,
                     'name' => $user->name,
-                    'email' => $user->email
+                    'email' => $user->email,
+                    'can' => [
+                        'editable' => \request()->user()->can('update', $user)
+                    ]
                 ]),
-            'filters' => request()->only(['search'])
+            'filters' => request()->only(['search']),
+            'can' => [
+                'create_user' => \request()->user()->can('create', User::class)
+            ]
         ]);
     }
 

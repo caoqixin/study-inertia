@@ -19,14 +19,15 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'auth'])->name('login.auth');
+Route::delete('/logout', [LoginController::class, 'logout'])->name('login.logout');
 
 Route::middleware('auth')->group(function () {
     Route::get('/', [HomeController::class, 'index']);
 
     Route::controller(UserController::class)->group(function () {
         Route::get('/users', 'index');
-        Route::get('/users/create', 'create');
-        Route::post('/users', 'store');
+        Route::get('/users/create', 'create')->can('create', \App\Models\User::class);
+        Route::post('/users', 'store')->can('create', \App\Models\User::class);
     });
 
 
